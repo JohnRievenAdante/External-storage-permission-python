@@ -89,7 +89,7 @@ class Example(MDApp):
             if api_version > 29:
                 # If you have access to the external storage, do whatever you need
                 if Environment:
-
+                    logging.info("permission external storage environment ok")
                     # If you don't have access, launch a new activity to show the user the system's dialog
                     # to allow access to the external storage
                     pass
@@ -114,7 +114,9 @@ class Example(MDApp):
     def _show_validation_dialog(self):
         if platform == "android":
             Environment = autoclass("android.os.Environment")
+            logging.info("show validation dialog ok")
             if not Environment:
+                logging.info("show validation dialog environment ok")
                 self.show_permission_popup = MDDialog(
                     title="Alert",
                     text="Permission to access your device's internal storage and files..",
