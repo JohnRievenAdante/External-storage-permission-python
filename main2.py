@@ -89,27 +89,27 @@ class Example(MDApp):
             Uri = autoclass("android.net.Uri")
             if api_version > 29:
                 # If you have access to the external storage, do whatever you need
-                if Environment:
+                """if Environment:
                     logging.info("permission external storage environment ok")
                     # If you don't have access, launch a new activity to show the user the system's dialog
                     # to allow access to the external storage
                     pass
-                else:
-                    try:
-                        activity = mActivity.getApplicationContext()
-                        uri = Uri.parse("package:" + activity.getPackageName())
-                        intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
-                        currentActivity = cast(
-                        "android.app.Activity", PythonActivity.mActivity
-                        )
-                        currentActivity.startActivityForResult(intent, 101)
-                    except:
-                        intent = Intent()
-                        intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-                        currentActivity = cast(
-                        "android.app.Activity", PythonActivity.mActivity
-                        )
-                        currentActivity.startActivityForResult(intent, 101)
+                else:"""
+                try:
+                    activity = mActivity.getApplicationContext()
+                    uri = Uri.parse("package:" + activity.getPackageName())
+                    intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
+                    currentActivity = cast(
+                    "android.app.Activity", PythonActivity.mActivity
+                    )
+                    currentActivity.startActivityForResult(intent, 101)
+                except:
+                    intent = Intent()
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                    currentActivity = cast(
+                    "android.app.Activity", PythonActivity.mActivity
+                    )
+                    currentActivity.startActivityForResult(intent, 101)
                     #self.show_permission_popup.dismiss()
 """
     def _show_validation_dialog(self):
