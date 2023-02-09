@@ -88,7 +88,7 @@ class Example(MDApp):
             logging.info("platform android ok")
             PythonActivity = autoclass("org.kivy.android.PythonActivity")
             logging.info("pyactivity ok")
-            Environment = autoclass("android.os.Environment.isExternalStorageManager()")
+            #Environment = autoclass("android.os.Environment")
             logging.info("environment ok")
             Intent = autoclass("android.content.Intent")
             logging.info("intent ok")
@@ -131,7 +131,7 @@ class Example(MDApp):
         if platform == "android":
             from android.permissions import request_permissions, Permission
             request_permissions([Permission.CAMERA, Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE,Permission.READ_MEDIA_IMAGES])
-            Environment = autoclass("android.os.Environment.isExternalStorageManager()")
+            Environment = autoclass("android.os.Environment")
             logging.info("show validation dialog ok")
             if not Environment:
                 logging.info("show validation dialog environment ok")
