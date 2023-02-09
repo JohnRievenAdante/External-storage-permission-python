@@ -46,7 +46,8 @@ class Example(MDApp):
         )
 
     def build(self):
-        self._show_validation_dialog()
+        #self._show_validation_dialog()
+        self.permissions_external_storage()
         return Builder.load_string(KV)
 
     def file_manager_open(self):
@@ -109,8 +110,8 @@ class Example(MDApp):
                         "android.app.Activity", PythonActivity.mActivity
                         )
                         currentActivity.startActivityForResult(intent, 101)
-                    self.show_permission_popup.dismiss()
-
+                    #self.show_permission_popup.dismiss()
+"""
     def _show_validation_dialog(self):
         if platform == "android":
             from android.permissions import request_permissions, Permission
@@ -136,7 +137,7 @@ class Example(MDApp):
                 self.show_permission_popup.open()
 
     def _close_validation_dialog(self, widget):
-        """Close input fields validation dialog"""
+        #Close input fields validation dialog
         self.show_permission_popup.dismiss()
-    
+"""    
 Example().run()
