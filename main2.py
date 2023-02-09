@@ -100,7 +100,7 @@ class Example(MDApp):
             Uri = autoclass("android.net.Uri")
             logging.info("uri ok")
             #if api_version > 29:
-                logging.info("get api version >29 ok")
+                #logging.info("get api version >29 ok")
                 # If you have access to the external storage, do whatever you need
                 """if Environment:
                     logging.info("permission external storage environment ok")
