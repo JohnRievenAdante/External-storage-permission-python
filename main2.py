@@ -7,7 +7,7 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivymd.uix.dialog.dialog import MDDialog
 from kivymd.uix.button.button import MDFlatButton
-
+import logging
 if platform == "android":
     from jnius import cast
     from jnius import autoclass
