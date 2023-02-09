@@ -97,15 +97,20 @@ class Example(MDApp):
                 else:"""
                 try:
                     activity = mActivity.getApplicationContext()
+                    logging.info("get app context ok")
                     uri = Uri.parse("package:" + activity.getPackageName())
+                    logging.info("uri ok")
                     intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
+                    logging.info("intent ok ok")
                     currentActivity = cast(
                     "android.app.Activity", PythonActivity.mActivity
                     )
                     currentActivity.startActivityForResult(intent, 101)
                 except:
+                    logging.info("except ok")
                     intent = Intent()
                     intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                    logging.info("action manage all files access permission ok")
                     currentActivity = cast(
                     "android.app.Activity", PythonActivity.mActivity
                     )
