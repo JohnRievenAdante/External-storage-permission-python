@@ -10,11 +10,11 @@ from kivymd.uix.button.button import MDFlatButton
 import logging
 from jnius import cast
 from jnius import autoclass
-from android import mActivity, api_version
+#from android import mActivity, api_version
 if platform == "android":
     from jnius import cast
     from jnius import autoclass
-    from android import mActivity, api_version
+    #from android import mActivity, api_version
 
 
 
@@ -85,6 +85,9 @@ class Example(MDApp):
 
     def permissions_external_storage(self, *args):                  
         if platform == "android":
+            from android.permissions import request_permissions, Permission
+            request_permissions([Permission.CAMERA, Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE,Permission.READ_MEDIA_IMAGES,
+                                 Permission.MANAGE_EXTERNAL_STORAGE])
             logging.info("platform android ok")
             PythonActivity = autoclass("org.kivy.android.PythonActivity")
             logging.info("pyactivity ok")
@@ -96,7 +99,7 @@ class Example(MDApp):
             logging.info("settings ok")
             Uri = autoclass("android.net.Uri")
             logging.info("uri ok")
-            if api_version > 29:
+            #if api_version > 29:
                 logging.info("get api version >29 ok")
                 # If you have access to the external storage, do whatever you need
                 """if Environment:
@@ -105,27 +108,27 @@ class Example(MDApp):
                     # to allow access to the external storage
                     pass
                 else:"""
-                try:
-                    activity = mActivity.getApplicationContext()
-                    logging.info("get app context ok")
-                    uri = Uri.parse("package:" + activity.getPackageName())
-                    logging.info("uri ok")
-                    intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
-                    logging.info("intent ok ok")
-                    currentActivity = cast(
-                    "android.app.Activity", PythonActivity.mActivity
-                    )
-                    currentActivity.startActivityForResult(intent, 101)
-                except:
-                    logging.info("except ok")
-                    intent = Intent()
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-                    logging.info("action manage all files access permission ok")
-                    currentActivity = cast(
-                    "android.app.Activity", PythonActivity.mActivity
-                    )
-                    currentActivity.startActivityForResult(intent, 101)
-                    #self.show_permission_popup.dismiss()
+            try:
+                activity = mActivity.getApplicationContext()
+                logging.info("get app context ok")
+                uri = Uri.parse("package:" + activity.getPackageName())
+                logging.info("uri ok")
+                intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
+                logging.info("intent ok ok")
+                currentActivity = cast(
+                "android.app.Activity", PythonActivity.mActivity
+                )
+                currentActivity.startActivityForResult(intent, 101)
+            except:
+                logging.info("except ok")
+                intent = Intent()
+                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                logging.info("action manage all files access permission ok")
+                currentActivity = cast(
+                "android.app.Activity", PythonActivity.mActivity
+                )
+                currentActivity.startActivityForResult(intent, 101)
+                #self.show_permission_popup.dismiss()
 """
     def _show_validation_dialog(self):
         if platform == "android":
