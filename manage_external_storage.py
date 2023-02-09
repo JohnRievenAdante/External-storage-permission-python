@@ -109,22 +109,21 @@ class Example(MDApp):
     def _show_validation_dialog(self):
         if platform == "android":
             Environment = autoclass("android.os.Environment")
-            if not Environment.isExternalStorageManager():
-                self.show_permission_popup = MDDialog(
-                    title="Alert",
-                    text="Permission to access your device's internal storage and files..",
-                    size_hint=(0.6, 0.5),
-                    buttons=[
-                        MDFlatButton(
-                            text="Allow", on_press=self.permissions_external_storage
-                        ),
-                        MDFlatButton(
-                            text="Decline",
-                            on_release=self._close_validation_dialog,
-                        ),
-                    ],
-                )
-                self.show_permission_popup.open()
+            self.show_permission_popup = MDDialog(
+                title="Alert",
+                text="Permission to access your device's internal storage and files..",
+                size_hint=(0.6, 0.5),
+                buttons=[
+                    MDFlatButton(
+                        text="Allow", on_press=self.permissions_external_storage
+                    ),
+                    MDFlatButton(
+                        text="Decline",
+                        on_release=self._close_validation_dialog,
+                    ),
+                ],
+            )
+            self.show_permission_popup.open()
 
     def _close_validation_dialog(self, widget):
         """Close input fields validation dialog"""
