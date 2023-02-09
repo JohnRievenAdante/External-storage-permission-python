@@ -83,7 +83,7 @@ class Example(MDApp):
     def permissions_external_storage(self, *args):                  
         if platform == "android":
             PythonActivity = autoclass("org.kivy.android.PythonActivity")
-            Environment = autoclass("android.os.Environment.isExternalStorageManager")
+            Environment = autoclass("android.os.Environment.isExternalStorageManager()")
             Intent = autoclass("android.content.Intent")
             Settings = autoclass("android.provider.Settings")
             Uri = autoclass("android.net.Uri")
