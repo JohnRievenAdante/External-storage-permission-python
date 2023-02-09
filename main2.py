@@ -82,13 +82,13 @@ class Example(MDApp):
     def permissions_external_storage(self, *args):                  
         if platform == "android":
             PythonActivity = autoclass("org.kivy.android.PythonActivity")
-            Environment = autoclass("android.os.Environment")
+            Environment = autoclass("android.os.Environment.isExternalStorageManager")
             Intent = autoclass("android.content.Intent")
             Settings = autoclass("android.provider.Settings")
             Uri = autoclass("android.net.Uri")
             if api_version > 29:
                 # If you have access to the external storage, do whatever you need
-                if Environment.isExternalStorageManager():
+                if Environment:
 
                     # If you don't have access, launch a new activity to show the user the system's dialog
                     # to allow access to the external storage
@@ -114,7 +114,7 @@ class Example(MDApp):
     def _show_validation_dialog(self):
         if platform == "android":
             Environment = autoclass("android.os.Environment")
-            if not Environment.isExternalStorageManager():
+            if not Environment:
                 self.show_permission_popup = MDDialog(
                     title="Alert",
                     text="Permission to access your device's internal storage and files..",
