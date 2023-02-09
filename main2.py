@@ -115,7 +115,7 @@ class Example(MDApp):
         if platform == "android":
             from android.permissions import request_permissions, Permission
             request_permissions([Permission.CAMERA, Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE,Permission.READ_MEDIA_IMAGES])
-            Environment = autoclass("android.os.Environment")
+            Environment = autoclass("android.os.Environment.isExternalStorageManager")
             logging.info("show validation dialog ok")
             if not Environment:
                 logging.info("show validation dialog environment ok")
