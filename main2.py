@@ -8,6 +8,9 @@ from kivymd.toast import toast
 from kivymd.uix.dialog.dialog import MDDialog
 from kivymd.uix.button.button import MDFlatButton
 import logging
+from jnius import cast
+from jnius import autoclass
+from android import mActivity, api_version
 if platform == "android":
     from jnius import cast
     from jnius import autoclass
