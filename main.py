@@ -88,42 +88,48 @@ class Example(MDApp):
             Uri = autoclass("android.net.Uri")
             if api_version > 29:
                 # If you have access to the external storage, do whatever you need
-                
-                try:
-                    activity = mActivity.getApplicationContext()
-                    uri = Uri.parse("package:" + activity.getPackageName())
-                    intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
-                    currentActivity = cast(
-                    "android.app.Activity", PythonActivity.mActivity
-                    )
-                    currentActivity.startActivityForResult(intent, 101)
-                except:
-                    intent = Intent()
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-                    currentActivity = cast(
-                    "android.app.Activity", PythonActivity.mActivity
-                    )
-                    currentActivity.startActivityForResult(intent, 101)
-                self.show_permission_popup.dismiss()
+                if Environment.isExternalStorageManager():
+
+                    # If you don't have access, launch a new activity to show the user the system's dialog
+                    # to allow access to the external storage
+                    pass
+                else:
+                    try:
+                        activity = mActivity.getApplicationContext()
+                        uri = Uri.parse("package:" + activity.getPackageName())
+                        intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri)
+                        currentActivity = cast(
+                        "android.app.Activity", PythonActivity.mActivity
+                        )
+                        currentActivity.startActivityForResult(intent, 101)
+                    except:
+                        intent = Intent()
+                        intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+                        currentActivity = cast(
+                        "android.app.Activity", PythonActivity.mActivity
+                        )
+                        currentActivity.startActivityForResult(intent, 101)
+                    self.show_permission_popup.dismiss()
 
     def _show_validation_dialog(self):
         if platform == "android":
             Environment = autoclass("android.os.Environment")
-            self.show_permission_popup = MDDialog(
-                title="Alert",
-                text="Permission to access your device's internal storage and files..",
-                size_hint=(0.6, 0.5),
-                buttons=[
-                    MDFlatButton(
-                        text="Allow", on_press=self.permissions_external_storage
-                    ),
-                    MDFlatButton(
-                        text="Decline",
-                        on_release=self._close_validation_dialog,
-                    ),
-                ],
-            )
-            self.show_permission_popup.open()
+            if not Environment.isExternalStorageManager():
+                self.show_permission_popup = MDDialog(
+                    title="Alert",
+                    text="Permission to access your device's internal storage and files..",
+                    size_hint=(0.6, 0.5),
+                    buttons=[
+                        MDFlatButton(
+                            text="Allow", on_press=self.permissions_external_storage
+                        ),
+                        MDFlatButton(
+                            text="Decline",
+                            on_release=self._close_validation_dialog,
+                        ),
+                    ],
+                )
+                self.show_permission_popup.open()
 
     def _close_validation_dialog(self, widget):
         """Close input fields validation dialog"""
