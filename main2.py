@@ -85,11 +85,17 @@ class Example(MDApp):
 
     def permissions_external_storage(self, *args):                  
         if platform == "android":
+            logging.info("platform android ok")
             PythonActivity = autoclass("org.kivy.android.PythonActivity")
+            logging.info("pyactivity ok")
             Environment = autoclass("android.os.Environment.isExternalStorageManager()")
+            logging.info("environment ok")
             Intent = autoclass("android.content.Intent")
+            logging.info("intent ok")
             Settings = autoclass("android.provider.Settings")
+            logging.info("settings ok")
             Uri = autoclass("android.net.Uri")
+            logging.info("uri ok")
             if api_version > 29:
                 logging.info("get api version >29 ok")
                 # If you have access to the external storage, do whatever you need
