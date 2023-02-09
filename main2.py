@@ -99,15 +99,17 @@ class Example(MDApp):
             logging.info("settings ok")
             Uri = autoclass("android.net.Uri")
             logging.info("uri ok")
-            #if api_version > 29:
-                #logging.info("get api version >29 ok")
+            """
+            if api_version > 29:
+                logging.info("get api version >29 ok")
                 # If you have access to the external storage, do whatever you need
-                """if Environment:
+                if Environment:
                     logging.info("permission external storage environment ok")
                     # If you don't have access, launch a new activity to show the user the system's dialog
                     # to allow access to the external storage
                     pass
-                else:"""
+            else:
+            """
             try:
                 activity = mActivity.getApplicationContext()
                 logging.info("get app context ok")
